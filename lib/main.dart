@@ -1,3 +1,4 @@
+import 'package:flt_fooderlich/fooderlich_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,19 +11,24 @@ class Fooderlich extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // TODO: Create theme
+    final theme = FooderlichTheme.dark();
     // TODO: Apply Home widget
     return MaterialApp(
-      // TODO: Add theme
+      theme: theme,
       title: 'Fooderlich',
-
       home: Scaffold(
         // TODO: Style the title
         appBar: AppBar(
-          title: const Text('Fooderlich'),
+          title: Text(
+            'Fooderlich',
+            style: theme.textTheme.headline6,
+          ),
         ),
-        body: const Center(
-          child: Text('Let\'s get cooking!'),
+        body: Center(
+          child: Text(
+            'Let\'s get cooking!',
+            style: theme.textTheme.headline1,
+          ),
         ),
       ),
     );
