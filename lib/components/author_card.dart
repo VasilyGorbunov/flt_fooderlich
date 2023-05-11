@@ -1,6 +1,7 @@
-import 'package:flt_fooderlich/circle_image.dart';
-import 'package:flt_fooderlich/fooderlich_theme.dart';
 import 'package:flutter/material.dart';
+
+import '../fooderlich_theme.dart';
+import 'circle_image.dart';
 
 class AuthorCard extends StatefulWidget {
   final String authorName;
@@ -8,44 +9,45 @@ class AuthorCard extends StatefulWidget {
   final ImageProvider? imageProvider;
 
   const AuthorCard({
-    Key? key,
+    super.key,
     required this.authorName,
     required this.title,
     this.imageProvider,
-  }) : super(key: key);
+  });
 
   @override
-  State<AuthorCard> createState() => _AuthorCardState();
+  AuthorCardState createState() => AuthorCardState();
 }
 
-class _AuthorCardState extends State<AuthorCard> {
+class AuthorCardState extends State<AuthorCard> {
   bool _isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Replace return Container(...);
     return Container(
       padding: const EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleImage(
-            imageRadius: 28,
-            imageProvider: widget.imageProvider,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                widget.authorName,
-                style: FooderlichTheme.lightTextTheme.headline2,
+              CircleImage(
+                imageProvider: widget.imageProvider,
+                imageRadius: 28,
               ),
-              Text(
-                widget.title,
-                style: FooderlichTheme.lightTextTheme.headline3,
+              const SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.authorName,
+                    style: FooderlichTheme.lightTextTheme.headline2,
+                  ),
+                  Text(
+                    widget.title,
+                    style: FooderlichTheme.lightTextTheme.headline3,
+                  )
+                ],
               ),
             ],
           ),
@@ -57,8 +59,6 @@ class _AuthorCardState extends State<AuthorCard> {
               setState(() {
                 _isFavorited = !_isFavorited;
               });
-              const snackBar = SnackBar(content: Text('Favorite Pressed'));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
           ),
         ],
