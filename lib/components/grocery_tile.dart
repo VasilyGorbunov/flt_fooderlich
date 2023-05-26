@@ -1,5 +1,7 @@
 import 'package:flt_fooderlich/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class GroceryTitle extends StatelessWidget {
   final GroceryItem item;
@@ -15,16 +17,53 @@ class GroceryTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Change this Widget
     return Container(
       height: 100.0,
-      // TODO: Replace this color
-      color: Colors.red,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // TODO: Add Row to group (name, date, importance)
+          // TODO: Add Row to group (quantity, checkbox)
+        ],
+      ),
     );
   }
 
-// TODO: Add BuildImportance()
+  Widget buildImportance() {
+    if (item.importance == Importance.low) {
+      return Text(
+        'Low',
+        style: GoogleFonts.lato(
+          decoration: textDecoration,
+        ),
+      );
+    } else if (item.importance == Importance.high) {
+      return Text(
+        'High',
+        style: GoogleFonts.lato(
+          color: Colors.red,
+          fontWeight: FontWeight.w900,
+          decoration: textDecoration,
+        ),
+      );
+    } else {
+      throw Exception('This importance type does not exist');
+    }
+  }
 
-// TODO: Add buildDate()
-// TODO: Add buildCheckbox()
+  Widget buildDate() {
+    final dateFormatter = DateFormat('MMMM dd h:mm a');
+    final dateString = dateFormatter.format(item.date);
+    return Text(
+      dateString,
+      style: TextStyle(decoration: textDecoration),
+    );
+  }
+
+  Widget buildCheckbox() {
+    return Checkbox(
+      value: item.isComplete,
+      onChanged: onComplete,
+    );
+  }
 }
