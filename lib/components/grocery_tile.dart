@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GroceryTitle extends StatelessWidget {
+class GroceryTile extends StatelessWidget {
   final GroceryItem item;
   final Function(bool?)? onComplete;
   final TextDecoration textDecoration;
 
-  GroceryTitle({
+  GroceryTile({
     super.key,
     required this.item,
     this.onComplete,
@@ -17,13 +17,54 @@ class GroceryTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // TODO: Add Row to group (name, date, importance)
-          // TODO: Add Row to group (quantity, checkbox)
+          Row(
+            children: [
+              Container(
+                width: 5.0,
+                color: item.color,
+              ),
+              const SizedBox(width: 16.0),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.name,
+                    style: GoogleFonts.lato(
+                      decoration: textDecoration,
+                      fontSize: 21.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  buildDate(),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  buildImportance(),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                item.quantity.toString(),
+                style: GoogleFonts.lato(
+                  decoration: textDecoration,
+                  fontSize: 21.0,
+                ),
+              ),
+              buildCheckbox(),
+            ],
+          ),
         ],
       ),
     );
@@ -42,6 +83,15 @@ class GroceryTitle extends StatelessWidget {
         'High',
         style: GoogleFonts.lato(
           color: Colors.red,
+          fontWeight: FontWeight.w900,
+          decoration: textDecoration,
+        ),
+      );
+    } else if (item.importance == Importance.medium) {
+      return Text(
+        'Medium',
+        style: GoogleFonts.lato(
+          color: Colors.orange,
           fontWeight: FontWeight.w900,
           decoration: textDecoration,
         ),
